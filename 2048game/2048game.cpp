@@ -9,23 +9,24 @@ int main(){
 
 	srand(time(NULL));
     
-	const int field = '*';
+	const std::string field = "*";
     const int size = 4;
 
-	std::vector<std::vector<char>> map(size, std::vector<char>(size, field));
+	std::vector<std::vector<std::string>> map(size, std::vector<std::string>(size, field));
 
 	int random_x;
 	int random_y;
 	int four_or_two;
+
 	char choose;
+
+	
+
 	while (true){
 
 		system("cls");
 
-		int i = 0;
-		
-		while (i != 2) {
-
+		for (int i = 0; i < 3; i++) {
 			random_x = rand() % size;
 			random_y = rand() % size;
 
@@ -64,12 +65,12 @@ int main(){
 		case 'a':
 			break;
 		case 's':
-			for(int i = 0; i < 2; i++){
+			for(int i = 0; i < 3; i++){
 				for (int x = 0; x < size; x++){
 					for (int y = 0; y < size - 1; y++){
 						if (map[y][x] == map[y + 1][x] && map[y][x] != field){
 
-							map[y + 1][x] = static_cast<int>(map[y + 1][x] * 2); //mistake static_cast
+							map[y + 1][x] = std::to_string(std::stoi(map[y + 1][x]) * 2);
 							map[y][x] = field;
 							
 						}
@@ -85,6 +86,25 @@ int main(){
 			}
 			break;
 		case 'd':
+			for (int i = 0; i < 2; i++) {
+				for (int y = 0; y < size - 1; y++) {
+					for (int x = 0; x < size; x++) {
+						if (map[y][x] == map[y][x + 1] && map[y][x] != field) {
+
+							map[y][x + 1] = std::to_string(std::stoi(map[y][x + 1]) * 2);
+							map[y][x] = field;
+
+						}
+						else if (map[y][x] != field && map[y + 1][x] == field) {
+							map[y][x + 1] = map[y][x];
+							map[y][x] = field;
+						}
+
+
+					}
+				}
+
+			}
 			break;
 
 		default:
